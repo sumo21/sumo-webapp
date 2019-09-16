@@ -1,0 +1,123 @@
+<!DOCTYPE>
+<html lang="en">
+	<head>
+
+		<meta charset="utf8"/>
+
+		<title>'Murrrrrrrrrrrrrrrrica!</title>
+		<link href="css/demo_table_jui.css" rel="stylesheet"/>
+		<link href="css/ui-themes/jquery-ui.css" rel="stylesheet"/>
+		<link href="css/ui-themes/jquery-ui.structure.css" rel="stylesheet"/>
+		<link href="css/ui-themes/jquery-ui.theme.css" rel="stylesheet"/>
+		<link href="css/ui-themes/themes/black-tie/jquery-ui.css" rel="stylesheet" id="ui"/>
+		<link href="css/ui-themes/themes/black-tie/theme.css" rel="stylesheet" id="theme"/>
+		<script src="js/jquery.js"></script>
+		<script src="js/jquery-ui-custom.min.js"></script>
+		<script src="js/jquery.dataTables.min.js"></script>
+		<script>
+			$(document).ready(function(){
+				
+				$.ajax({
+					async		:	false,
+					dataType	:	'json',
+					type		:	'GET',
+					url			:	'services/states_service.php',
+					success		:	function(json) {
+						
+						if(json.success == 1) {
+							
+							for(var x = 0; x < json.records.length; x++) {
+								var row = '<tr id="' + x + '">';
+								row += '<td>';
+									row += json.records[x].id;
+								row += '</td>';
+								row += '<td>';
+									row += json.records[x].usstate;
+								row += '</td>';
+								row += '<td>';
+									row += json.records[x].capital;
+								row += '</td>';
+								row += '<td>';
+									row += json.records[x].abbr;
+								row += '</td>';
+								row += '<td>';
+									row += json.records[x].ordinal;
+								row += '</td>';
+								row += '</tr>';
+								$('#summary_table tbody').append(row);
+							}
+
+						}
+
+					}
+				});
+
+				function dataTableMe() {
+					var oTable = $('#summary_table').dataTable({
+						bJQueryUI		:	true,
+						aLengthMenu		:	[[10,25,50,100,-1],[10,25,50,100,'View All']],
+						iDisplayLength	:	10,
+						bPaginate		:	true,
+						sPaginationType	:	'full_numbers'
+					});
+				}
+
+				$('#jQuerify').button({
+					label : 'FANCY ME'
+				}).click(function(){
+					$(this).hide();
+					$('#roller').show().change(function(){
+						var theme = $(this).find('option:selected').val();
+						$('link[id="ui"]').attr('href', 'css/ui-themes/themes/' + theme + '/jquery-ui.css');
+						$('link[id="theme"]').attr('href', 'css/ui-themes/themes/' + theme + '/jquery-ui.css');
+					});
+					return dataTableMe();
+				});
+				$('#roller').hide();
+			});
+		</script>
+	</head>
+
+	<body>
+		<input type="button" id="jQuerify" value="Fancy Me" style="display:inline;"/>
+		<select name="ui-themeroller" id="roller" style="margin-left:20px !important; margin-bottom: 5px;">
+			<option value="">- Change theme...-</option>
+			<option value="base">Base</option>
+			<option value="black-tie">Black Tie</option>
+			<option value="blitzer">Blitzer</option>
+			<option value="cupertino">Cupertino</option>
+			<option value="dark-hive">Dark Hive</option>
+			<option value="dot-luv">Dot Luv</option>
+			<option value="eggplant">Eggplant</option>
+			<option value="excite-bike">Excite Bike</option>
+			<option value="flick">Flick</option>
+			<option value="hot-sneaks">Hot Sneaks</option>
+			<option value="humanity">Humanity</option>
+			<option value="le-frog">Le Frog</option>
+			<option value="mint-choc">Mint Chocolate</option>
+			<option value="overcast">Overcast</option>
+			<option value="pepper-grinder">Pepper Grinder</option>
+			<option value="redmond">Redmond</option>
+			<option value="smoothness">Smoothness</option>
+			<option value="south-street">South Street</option>
+			<option value="start">Start</option>
+			<option value="sunny">Sunny</option>
+			<option value="swanky-purse">Swanky Purse</option>
+			<option value="trontastic">Trontastic</option>
+			<option value="ui-darkness">UI-Darkness</option>
+			<option value="ui-lightness">UI-Lightness</option>
+			<option value="vader">Vader</option>
+		</select>
+		<table id="summary_table" class="display">
+			<thead>
+				<tr>
+					<th>ID</th><th>US State</th><th>Capital</th><th>ABBR</th><th># in Union</th>
+				</tr>
+			</thead>
+			<tbody>
+				
+			</tbody>
+		</table>
+
+	</body>
+</html>
