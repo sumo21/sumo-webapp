@@ -1,11 +1,14 @@
 <?php
 	header('Content-type: application/json');
 
+	$params = parse_url(getenv("DATABASE_URL"));
+
 	$results = array();
 	$records = array();
 	
 	try {
-		$db = pg_connect("host=localhost dbname=postgres user=postgres password=F3$73r_@");
+
+		$db = pg_connect("host=" . $params['host'] . " dbname=" . ltrim($params['path'], '/') . " user=" . $params['user'] . " password=" . $params['pass']);
 
 	}catch(Exception $e){
 		print_r('Exception:  ' . $e);
