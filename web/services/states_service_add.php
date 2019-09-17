@@ -31,7 +31,7 @@
 		$results['success'] = 0;
 	}
 		
-	$redUrl = '/web/states.html';
+	$redUrl = 'https://sumo-webapp.herokuapp.com/web/states.html';
 	
 	header('Location:' . $redUrl);
 	exit;
