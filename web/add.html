@@ -12,17 +12,10 @@
 		<script>
 			$(document).ready(function(){
 				$('#addbutton').click(function(){
-					$.ajax({
-						dataType	:	'json',
-						type		:	'POST',
-						url			:	'https://sumo-webapp.herokuapp.com/web/services/states_service_add.php',
-						data		:	{'usState':$('#usState').val(),'capital':$('#capital').val(),'abbr':$('#abbr').val()},
-						success		:	function(json) {
-							alert(json.success);
-							alert(json.recordId);
 
-						}
-					});
+					$('form[name="newStateForm"]').attr('action','https://sumo-webapp.herokuapp.com/web/services/states_service_add.php').method('POST').submit();
+
+
 				}).css({
 					'margin-top':'5px',
 					'margin-bottom':'5px',
