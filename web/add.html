@@ -1,0 +1,73 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<meta charset="utf8"/>
+		<title>Add a record test page....SUCKAH!!!!!!!!!!!!!</title>
+		<style>
+			table tbody tr td.attribute {padding-right:10px;background-color: lightgrey;width: 300px; text-align:right; font-weight:bold;}
+			table.addTable {width:40%; margin: 10px 30%;}
+			input[type="text"] {width:100%;}
+		</style>
+		<script src="js/jquery.js"></script>
+		<script>
+			$(document).ready(function(){
+				$('#addbutton').click(function(){
+					$.ajax({
+						dataType	:	'json',
+						type		:	'POST',
+						url			:	'services/states_service_add.php',
+						data		:	{'usState':$('#usState').val(),'capital':$('#capital').val(),'abbr':$('#abbr').val()},
+						success		:	function(json) {
+							alert(json.success);
+							alert(json.recordId);
+
+						}
+					});
+				}).css({
+					'margin-top':'5px',
+					'margin-bottom':'5px',
+					'text-align':'center',
+					'font-size':'1em',
+					'border-radius':'10px'
+				});
+			});
+		</script>
+	</head>
+
+	<body>
+		<form name="newStateForm" action="#" method="GET">
+			<table class="addTable">
+				<thead>
+					<tr style="background-color: grey; font-size: 2em;">
+						<th colspan="2">ADD A NEW STATE</th>
+					</tr>
+					<tr style="background-color: lightgrey;">
+						<th>ATTRIBUTE</th>
+						<th>VALUE</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="attribute">NEW STATE:</td>
+						<td><input type="text" name="usState" id="usState"/></td>
+					</tr>
+					<tr>
+						<td class="attribute">NEW STATE CAPITAL:</td>
+						<td><input type="text" name="capital" id="capital"/></td>
+					</tr>
+					<tr>
+						<td class="attribute">NEW STATE ABBREVIATION:</td>
+						<td><input type="text" name="abbr" id="abbr" maxLength="2"/></td>
+					</tr>
+				</tbody>
+				<tfoot style="background-color: lightgrey;">
+					<tr>
+						<td colspan="2" align="center">
+							<input type="button" value="ADD" id="addbutton"/>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+		</form>
+	</body>
+</html>
