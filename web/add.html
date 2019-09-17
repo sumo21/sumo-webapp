@@ -13,7 +13,7 @@
 			$(document).ready(function(){
 				$('#addbutton').click(function(){
 
-					$('form[name="newStateForm"]').attr('action','https://sumo-webapp.herokuapp.com/web/services/states_service_add.php').method('POST').submit();
+					$('form[name="newStateForm"]').method('POST').submit();
 
 
 				}).css({
@@ -28,7 +28,7 @@
 	</head>
 
 	<body>
-		<form name="newStateForm" action="#" method="GET">
+		<form name="newStateForm" action="https://sumo-webapp.herokuapp.com/web/services/states_service_add.php" method="POST">
 			<table class="addTable">
 				<thead>
 					<tr style="background-color: grey; font-size: 2em;">
