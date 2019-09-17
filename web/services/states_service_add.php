@@ -32,6 +32,8 @@
 	}
 		
 	$redUrl = 'https://sumo-webapp.herokuapp.com/web/states.html';
+
+	echo json_encode($response);
 	
 	header('Location:' . $redUrl);
 	exit;
