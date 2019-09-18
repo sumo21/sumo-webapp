@@ -1,5 +1,7 @@
 <?php
 	header('Content-type: application/json');
+	
+	$params = parse_url(getenv("DATABASE_URL"));
 
 	
 	if (!is_null($_POST)) {
@@ -12,7 +14,6 @@
 	
 		try {
 
-			$params = parse_url(getenv("DATABASE_URL"));
 
 			$db = pg_connect("host=" . $params['host'] . " dbname=" . ltrim($params['path'], '/') . " user=" . $params['user'] . " password=" . $params['pass']);
 
@@ -31,14 +32,16 @@
 		$results['success'] = 1;
 		$results['recordId'] = $newRecId;
 		
-		$redUrl = 'https://sumo-webapp.herokuapp.com/web/states.html';
-
 	} else {
+
 		$results['success'] = 0;
-		$redUrl = 'https://sumo-webapp.herokuapp.com/web/dummy.html';
+
 	}
-	
+
+	$redUrl = 'https://sumo-webapp.herokuapp.com/web/states.html';
+
 	header('Location:' . $redUrl);
+
 	exit;
 
 ?>
