@@ -3,6 +3,7 @@
 	
 	$params = parse_url(getenv("DATABASE_URL"));
 
+	$results = array();
 	
 	if (!is_null($_POST)) {
 		
@@ -18,6 +19,8 @@
 			$db = pg_connect("host=" . $params['host'] . " dbname=" . ltrim($params['path'], '/') . " user=" . $params['user'] . " password=" . $params['pass']);
 
 		}catch(Exception $e){
+
+			$results['error'] = $e;
 
 			print_r('Exception:  ' . $e);
 
@@ -35,13 +38,9 @@
 	} else {
 
 		$results['success'] = 0;
-
+		$results['recordId'] = 0;
 	}
 
-	$redUrl = 'https://sumo-webapp.herokuapp.com/web/states.html';
-
-	header('Location:' . $redUrl);
-
-	exit;
+	echo json_encode($results);
 
 ?>
