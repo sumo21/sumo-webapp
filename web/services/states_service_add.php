@@ -8,20 +8,24 @@
 		$capital = $_POST['capital'];
 		$abbr = $_POST['abbr'];
 		
-		$query = 'SELECT * FROM insertState(\''. $usState .'\', \''. $capital .'\', \''. $abbr .'\');';
+		$query = 'SELECT insertState(\''. $usState .'\', \''. $capital .'\', \''. $abbr .'\') AS id;';
 	
 		try {
+
+			$params = parse_url(getenv("DATABASE_URL"));
 
 			$db = pg_connect("host=" . $params['host'] . " dbname=" . ltrim($params['path'], '/') . " user=" . $params['user'] . " password=" . $params['pass']);
 
 		}catch(Exception $e){
+
 			print_r('Exception:  ' . $e);
+
 		}
 		
 		$res = pg_query($db, $query);
 
 		while($row = pg_fetch_array($res)) {
-			$newRecId = $row[0];
+			$newRecId = $row['id'];
 		}
 		
 		$results['success'] = 1;
@@ -33,9 +37,6 @@
 		$results['success'] = 0;
 		$redUrl = 'https://sumo-webapp.herokuapp.com/web/dummy.html';
 	}
-		
-
-	echo json_encode($response);
 	
 	header('Location:' . $redUrl);
 	exit;
