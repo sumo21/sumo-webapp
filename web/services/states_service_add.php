@@ -20,18 +20,20 @@
 		
 		$res = pg_query($db, $query);
 
-		$row = pg_fetch_array($res);
+		while($row = pg_fetch_array($res)) {
+			$newRecId = $row[0];
+		}
 		
-		$newRecId = $row[0];
-
 		$results['success'] = 1;
 		$results['recordId'] = $newRecId;
+		
+		$redUrl = 'https://sumo-webapp.herokuapp.com/web/states.html';
 
 	} else {
 		$results['success'] = 0;
+		$redUrl = 'https://sumo-webapp.herokuapp.com/web/dummy.html';
 	}
 		
-	$redUrl = 'https://sumo-webapp.herokuapp.com/web/states.html';
 
 	echo json_encode($response);
 	
